@@ -317,4 +317,105 @@ en revanche, nous sommes en procédural... Il va donc falloir ajouter une couche 
 
 
 
+ETAPE 7 : UTILISATION DES SERVICES SILEX: 
+Doctrine BDAL + modélisation objet 
+
+
+Sommaire : 
+1/Création de la classe Produit dans src/Entity 
+2/Remplacement de PDO par Doctrine DBAL 
+3/Créer le dossier DAO (Data Access Object)
+4/Ajouter le fichier ProduitDAO.php 
+5/Mise à jour de l'application via composer
+6/Création du fichier app.php dans app/ 
+7/creation du fichier prod.php dans app/config 
+8/creation du fichier dev.php dans app/config/
+9/Modification des routes
+10/Modification de la vue 
+11/Modification de l'index.php
+
+
+
+
+1/ Création de la class Produit dans src/Entity 
+->Creation de la classe Produit dans src/Entity/Produit.php 
+->cette classe va servir de plan de fabrication d'un objet Produit. Un prototype. Il contient toutes les propriétés de l'entité produit (private) 
+et tous les getter/setters. On dit que cette classe est un POPO (PLAIN OLD PHP OBJECT)
+
+
+2/ Remplacement de PDO par Doctrine DBAL 
+-> Doctrine DBAL (DATABASE Abstract Layer) : Fait la même chose que PDO mais améliore le système de requête. Ce service de Silex,, nous permet également une connexion compatible avec tout type de gestion de BDD.
+Il nous récupère la connexion dans un SINGLETON sans qu'on ait besoin de le faire nous-même. 
+
+
+
+3/ Création un dossier DAO dans src/
+
+->DAO : DATA ACCESS OBJECT : DAO est un design pattern qui répond à la questioin ; Comment récupérer des infos depuis la base données non pas sous forme d'array, mais sous forme d'objets ? ==> voire la méthode (buildProduit())
+
+
+4/Création du fichier produit DAO.php dans src/DAO/
+
+-> Ce fichir correspond à notre MODEL PRODUIT. C'est lui qui va gérer toutes les requetes auprès de la table produit, et nous renvoyer les résultats sous forme d'objets. 
+
+-> On a récupéré la connexion à la base de données grâce à Doctrine\DBAL\Connextion. 
+->On stocke cette connexion dans la propriété private $db. 
+->Chauqe requete sur la table Produit sera representee par une fonction. (findAll, findById, findAllByCategorie,etc...)
+->Pour chacune de ses requestes quand cela est possible on va transformer les relustas d'array en objets grace à a la méthode buildProduit()).
+
+===>DAO est un design pattern qui permet de modéliser sous forme d'objet (ENTITY) les resultats d'une requete.
+
+Mise à jour de notre notre application 
+
+ {
+        "require": {
+            "silex/silex": "~2.0",
+            "doctrine/dbal": "2.5"
+        }
+        "autoload": {
+            "psr-4" : {"BOUTIQUE\\": "src"}
+        }
+    }
+
+
+<cmd>
+composer update 
+
+-> Cette commande a fait : 
+- Récuperer les composants Doctrine DBAL
+-Mise à jour l'autoload selon la norme PSR-4 (les noms des namespaces correspondent à des noms des dossiers) 
+
+
+6/creation du fichier app.php dans le dossier app/ 
+ ->Ce fichier représente les paramètres de notre application. Quand vous déplacerez votre application d'un server à un autre en théorie vous ne dervez modifier que ce fichier là... A l'insatr de init.inc.php dans notre procédural. 
+ -> Les deux premieres lignes (use ErrorHandler et ExceptionHandler) permettent à notre application de gérer les erreurs sous forme d'Exception. 
+Les composants Symfony prennent la main sur la gestion des erreurs PHP.
+
+
+ -> Ensuite on enregistre le fournisseur de service associé à Doctrine DBAL. 
+A faire pour tous les services utilisés.
+
+-> Enfin on déclare/enregistre notre class ProduitDAO dans notre $app['dao.produit']. Cela nous permettra de rendre plus simple l'utilisation de notre instance de la classe ProduitDAO. 
+$app['db'] représente par ailleurs notre connexion à la BDD grace à Doctrine DBAL. 
+
+
+7/Création du fichier prod.php dans app/config 
+-> Cefichier contient toutes les infos de connexion à la bdd. 
+
+8/Création du fichier dev.php dans app/config
+->Ce fichier contient les infos relatives à la phase de dev. 
+
+9/Modification du fichier routes.php
+-> On remplace l'ancien require model.php qui nous permettait d'accéder à la méthode afficheAll() par une instanciation de ProduitDAO($app['produitDAO'])qui est notre nouveau model. Dans ce nouveau model, on éxécute findAll() et findAlCategories.
+===> La logique Controller/Model reste la même qu'auparavant. 
+
+/!\ Attention : Dans notre vue view.php, nous utilisons des arrays ($produit['titre']) mais maintenant on doit utiliser des objets ($produit->getTitre()).
+
+
+
+10/ Modification de view.php 
+-> on remplace les arrays par l'utilisation des getter : 
+ARRAY : <?= $pdt['titre'] ?>
+OBJET : <?=$pdt->getTitre() ?>
+TWIG : {{ pdt.titre}}
 
