@@ -43,12 +43,12 @@
             <?php foreach($produits as $pdt) :  ?>
                 <!-- Debut vignette produit -->
                 <div class="boutique-produit">
-                    <h3><?= $pdt['titre'] ?></h3>
-                    <a href="fiche_produit.php?id=<?= $pdt['id_produit'] ?>"><img src="photo/<?= $pdt['photo'] ?>" height="100"/></a>
-                    <p style="font-weight: bold; font-size: 20px;"><?= $pdt['prix'] ?>€</p>
+                    <h3><?= $pdt->getTitre() ?></h3>
+                    <a href="fiche_produit.php?id=<?= $pdt->getId_produit() ?>"><img src="photo/<?= $pdt->getPhoto()?>" height="100"/></a>
+                    <p style="font-weight: bold; font-size: 20px;"><?= $pdt->getPrix() ?>€</p>
 
-                    <p style="height: 40px"><?= substr($pdt['description'], 0, 40) ?>...</p>
-                    <a href="fiche_produit.php?id=<?= $pdt['id_produit'] ?>" style="padding:5px 15px; background: red; color:white; text-align: center; border: 2px solid black; border-radius: 3px" >Voir la fiche</a>
+                    <p style="height: 40px"><?= substr($pdt->getDescription(), 0, 40) ?>...</p>
+                    <a href="fiche_produit.php?id=<?= $pdt->getId_produit()?>" style="padding:5px 15px; background: red; color:white; text-align: center; border: 2px solid black; border-radius: 3px" >Voir la fiche</a>
                     <!-- href="fiche_produit.php?id=id_du_produit" -->
                 </div>
                 <!-- Fin vignette produit -->
