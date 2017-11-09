@@ -1,73 +1,73 @@
 ---------
-SILEX : 
+SILEX :
 ------------------
-Sommaire : 
-INTRO : Qu'est-ce que Silex ? 
-Etape 0 : Base de notre app : site_mvc (procédural)
+Sommaire :
+INTRO : Qu'est-ce que Silex ?
+Etape 0 : Base de notre app : site_mvc (procï¿½dural)
 ETAPE 1 : Installation de Silex
-ETAPE 2 : Démarrage et compréhension 
+ETAPE 2 : Dï¿½marrage et comprï¿½hension
 ETAPE 3 : Le routing avec Silex
 ETAPE 4 : Virtual Host
 ETAPE 5 : HTACCESS : "On retire 'index.php'
-ETAPE 6 : Démarrage de notre application BOUTIQUE
+ETAPE 6 : Dï¿½marrage de notre application BOUTIQUE
 ETAPE 7 : Utilisation des services Silex (Doctine DBAL)
 ETAPE 8 : Utilisation des services Silex(Twig)
 ETPAE 9 : Utilisation des services Silex (Bootstrap)
-ETPAE 10: Ajout des commentaires à nos produits (Injection de dépendance)
-ETAPE 11: Le class DAO(design pattern : comment transformer un tableau multidimensionnel composé d'array, en un tableau dimensionnel composé d'objet)
-ETAPE 12 : Héritage TWIG 
-ETAPE 13: Gestion de la sécurité (Connexion)
+ETPAE 10: Ajout des commentaires ï¿½ nos produits (Injection de dï¿½pendance)
+ETAPE 11: Le class DAO(design pattern : comment transformer un tableau multidimensionnel composï¿½ d'array, en un tableau dimensionnel composï¿½ d'objet)
+ETAPE 12 : Hï¿½ritage TWIG
+ETAPE 13: Gestion de la sï¿½curitï¿½ (Connexion)
 ETAPE 14: Class MembreDAO et UserProviderInterface
 ETAPE 15: Formulaire de connexion
-ETAPE 16: Formulaire d'inscription 
+ETAPE 16: Formulaire d'inscription
 ETPAE 17: Formulaire de contact
 ETAPE 18: BACKOFFICE
-ETAPE 19: Réorganisation en Controller
-ETAPE 20: Prpéparation de la pise en prod. 
+ETAPE 19: Rï¿½organisation en Controller
+ETAPE 20: Prpï¿½paration de la pise en prod.
 
 
 ---------------------------------
-INTRO : Qu'est-ce que Silex ? 
+INTRO : Qu'est-ce que Silex ?
 
 
-  1/ Avantages à utiliser un Framework ? 
-  
-   A/ Choix d'une organisation optimisée. Il est très difficile de conceptualiser soi-même une application en objet (un Framework maison). Où vont les controller? Les models? Les vues ? Aucune réponse n'est parfaite mais chacun à sa propre organisation cohérente...ou pas. 
-    
+  1/ Avantages ï¿½ utiliser un Framework ?
 
-  B/ Focntinnalités communes : Un framework permet de récupérer des briques déjà existantes.. et les récupérer du site A vers le site B etc.. (Briques : Connexion, inscription, session, commentaires..)
-
-   
-   C/ Services disponibles : Tous les frameworks proposent des services : Routage (Routing), la sécurité, la gestion du cache etc... 
-Cela nous permet de nous concentrer et de passer plus de temps au développement de nos propres fonctionnalités. 
+   A/ Choix d'une organisation optimisï¿½e. Il est trï¿½s difficile de conceptualiser soi-mï¿½me une application en objet (un Framework maison). Oï¿½ vont les controller? Les models? Les vues ? Aucune rï¿½ponse n'est parfaite mais chacun ï¿½ sa propre organisation cohï¿½rente...ou pas.
 
 
-
-   2/ Quel choix de Framework ? 
-
-  A/Son propre framework maison ? 
-Très formateur !!On peut toujours l'améliorer et l'utiliser dans des projets persos... par contre : pas de communauté, pas de documentation et c'est difficile de grantir tous les aspects de sécurité. 
-
- 
-
-  B/Framework du marché : 
-
--Framework Fullstack (Zend, Symfony, Cake) : Beaucoup de services disponibles, grosses communautés, mais un déploiement très lourd et une architecture IMPOSEE. 
-
--Mini Framework (Laravel et Silex) : Proposent des services à la carte et une architecture plus souple.
-
- A/ Silex est un framework developpé par les équipes SensioLabs, qui sont les créateurs de Symfony. Il repose sur les mêmes composants. 
-
-  
- 
- B/On dit que Silex est un mini-framework , parfait pour l'apprentissage, et la compréhension de la logique Framework. Parfait également pour développer des applications rapidement et première étape intéressante dans l'apprentissage de Symfony. 
+  B/ Focntinnalitï¿½s communes : Un framework permet de rï¿½cupï¿½rer des briques dï¿½jï¿½ existantes.. et les rï¿½cupï¿½rer du site A vers le site B etc.. (Briques : Connexion, inscription, session, commentaires..)
 
 
-  
+   C/ Services disponibles : Tous les frameworks proposent des services : Routage (Routing), la sï¿½curitï¿½, la gestion du cache etc...
+Cela nous permet de nous concentrer et de passer plus de temps au dï¿½veloppement de nos propres fonctionnalitï¿½s.
 
 
 
-  B/Framework du marché : FullStack 
+   2/ Quel choix de Framework ?
+
+  A/Son propre framework maison ?
+Trï¿½s formateur !!On peut toujours l'amï¿½liorer et l'utiliser dans des projets persos... par contre : pas de communautï¿½, pas de documentation et c'est difficile de grantir tous les aspects de sï¿½curitï¿½.
+
+
+
+  B/Framework du marchï¿½ :
+
+-Framework Fullstack (Zend, Symfony, Cake) : Beaucoup de services disponibles, grosses communautï¿½s, mais un dï¿½ploiement trï¿½s lourd et une architecture IMPOSEE.
+
+-Mini Framework (Laravel et Silex) : Proposent des services ï¿½ la carte et une architecture plus souple.
+
+ A/ Silex est un framework developpï¿½ par les ï¿½quipes SensioLabs, qui sont les crï¿½ateurs de Symfony. Il repose sur les mï¿½mes composants.
+
+
+
+ B/On dit que Silex est un mini-framework , parfait pour l'apprentissage, et la comprï¿½hension de la logique Framework. Parfait ï¿½galement pour dï¿½velopper des applications rapidement et premiï¿½re ï¿½tape intï¿½ressante dans l'apprentissage de Symfony.
+
+
+
+
+
+
+  B/Framework du marchï¿½ : FullStack
 
 
 
@@ -75,14 +75,14 @@ Très formateur !!On peut toujours l'améliorer et l'utiliser dans des projets per
 
 
 ----------------------------------------------------
-Etapae 0 : Base de notre app : site_mvc (procédural)
+Etapae 0 : Base de notre app : site_mvc (procï¿½dural)
 ----------------------------------------------------
-Pour commencer la compréhension de Silex, nous allons partir sur la base d'un morceau de site en procédural et en MVC afin d'avancer étape par étape : 
+Pour commencer la comprï¿½hension de Silex, nous allons partir sur la base d'un morceau de site en procï¿½dural et en MVC afin d'avancer ï¿½tape par ï¿½tape :
 
 
-silex/site_mvc/ 
-    - css/(copier de votre ancien site procédural)
-    - photo/(copier de votre ancien site procédural)
+silex/site_mvc/
+    - css/(copier de votre ancien site procï¿½dural)
+    - photo/(copier de votre ancien site procï¿½dural)
     - index.php (vide)
     - model.php(vide)
     - view.php (vide)
@@ -90,79 +90,79 @@ silex/site_mvc/
 
 
 
-Etape 1 : Installation de Silex 
+Etape 1 : Installation de Silex
 
 
 
-Sommaire:  
+Sommaire:
 
-1/Installation de composer 
-2/Création du dossier BOUTIQUE 
-3/ Commande pour télécharger les composants de Silex 
-3.Bis : Autre technique pour télécharger les composants de silex
+1/Installation de composer
+2/Crï¿½ation du dossier BOUTIQUE
+3/ Commande pour tï¿½lï¿½charger les composants de Silex
+3.Bis : Autre technique pour tï¿½lï¿½charger les composants de silex
 4/ tour d'horizon des composants.
 -------------------------
 
 
 
-1/Installation de Composer 
+1/Installation de Composer
 
-Composer est outil de gestion des dépendances. Il permet d'installer des services (composants, dépendances) et est relié à un fichier composer.json. 
+Composer est outil de gestion des dï¿½pendances. Il permet d'installer des services (composants, dï¿½pendances) et est reliï¿½ ï¿½ un fichier composer.json.
 
--->Télécharger composer
---> Installer composer (en précisant php.exe)
+-->Tï¿½lï¿½charger composer
+--> Installer composer (en prï¿½cisant php.exe)
 
 
-2/ creation du dossier silex/BOUTIQUE/ 
+2/ creation du dossier silex/BOUTIQUE/
 
-3/ cOMMANDE POUR T2L2CHARGER LES COMPOSANTS DE SILEX / 
--> on se place dans le dossier BOUTIQUE/ 
--> Maj + clic droit > "Ouvrir la fenetre de commande ici" 
+3/ cOMMANDE POUR T2L2CHARGER LES COMPOSANTS DE SILEX /
+-> on se place dans le dossier BOUTIQUE/
+-> Maj + clic droit > "Ouvrir la fenetre de commande ici"
 
 
 <cmd>
 
 composer require silex/silex "~2.0"
   <code>
-    { 
+    {
      "require": {
                 "silex/silex": "~2.0"
                 }
         }
       <cmd>
-  composer update 
+  composer update
 
 
-4/Les composants : 
+4/Les composants :
 
-Le dossier vendor correspond au coeur de notre framework. Il contient tous les composants récupérés de Silex/Symfony, sur lesquels nous n'intervidendrons jamais !!!
+Le dossier vendor correspond au coeur de notre framework. Il contient tous les composants rï¿½cupï¿½rï¿½s de Silex/Symfony, sur lesquels nous n'intervidendrons jamais !!!
 
 3.bis
 
 ----------------------------
-ETAPE 2 : Démarrage et Compréhension 
+ETAPE 2 : Dï¿½marrage et Comprï¿½hension
 ------------------------------
 
-Sommaire : 
-1/Création du répertoire Web 
-2/Création du fichier index.php 
+Sommaire :
+1/Crï¿½ation du rï¿½pertoire Web
+2/Crï¿½ation du fichier index.php
 
 
-1/repertoire web 
+1/repertoire web
 
 -> a la racine de notre application BOUTIQUE/web/
 -> Ce dossier constitue notre repertoire web, cela signifie qu'il va contenir tout ce qui est visble et accessible pour l'internaute (index.php, photos, img, fonts, js, css...)
 
 
-2/ creer web/index.php 
+2/ creer web/index.php
 
 ->d'abord on require l'autoload qui se chargera de require tous les fichiers dont on aura besoin.PRATIQUE !
 
 
 
--> On instancie la classe Application : L'objet $app va représenter notre application et nous donne accès à toutes les fonctionnalités de Silex. 
+-> On instancie la classe Application : L'objet $app va reprï¿½senter notre application et nous donne accï¿½s ï¿½ toutes les fonctionnalitï¿½s de Silex.
 
--> Méthode run() : Lancement de l'application.
+-> Mï¿½thode run() : Lancement de l'application.
 
 
 
@@ -170,21 +170,21 @@ Sommaire :
 ETAPE 3 : Le routing sur Silex
 --------------------------------
 
-Sommaire : 
+Sommaire :
 
-1/ Route Hello World 
+1/ Route Hello World
 2/ Route Hello {$name}
-3/ La fonction Get de notre application 
-4/ Arguments 
+3/ La fonction Get de notre application
+4/ Arguments
 5/ fonction escape()
 -----------------------
 
 
 
-1/ Route Hello World 
+1/ Route Hello World
 
 
- -> $app -> get() est la fonction qui nous permet de créer une nouvelle route. Chaque route est une action dans notre application. Ensuite nous rangerons toutes nos actions dans des controllers, pour optimiser notre organisation. 
+ -> $app -> get() est la fonction qui nous permet de crï¿½er une nouvelle route. Chaque route est une action dans notre application. Ensuite nous rangerons toutes nos actions dans des controllers, pour optimiser notre organisation.
 
 
 2/Route Hello {$name}
@@ -193,32 +193,32 @@ Sommaire :
 
 
 3/La fonction Get()
--> A chaque nouvelle fonctionnalité, on va utiliser la fonction get de $app, qui nous crée une nouvelle route. En plus de get, il existe post() et match(). Nous les verrons plus tard. 
+-> A chaque nouvelle fonctionnalitï¿½, on va utiliser la fonction get de $app, qui nous crï¿½e une nouvelle route. En plus de get, il existe post() et match(). Nous les verrons plus tard.
 
 
-4/Arguments: 
--> le premier argument est la nom de la route. Les paramètrres contenus dans les URL sont alors déclaré en {]
--> le second argument function{} est ce que l'on appelle une "closure" ou une "fonction anonyme". Elle signifie que ce qui va suivre sera executé. Une fonction dans une foction finalement. Elle peut recevoir les paramètrres dynamiques de notre URL (ex: function ($name)). 
+4/Arguments:
+-> le premier argument est la nom de la route. Les paramï¿½trres contenus dans les URL sont alors dï¿½clarï¿½ en {]
+-> le second argument function{} est ce que l'on appelle une "closure" ou une "fonction anonyme". Elle signifie que ce qui va suivre sera executï¿½. Une fonction dans une fontion finalement. Elle peut recevoir les paramï¿½trres dynamiques de notre URL (ex: function ($name)).
 
-5/ La méthode escape() 
- -> La fonction escape() permet simplement d'afficher le paramètre contenu dans la route.La méthode escape() permet d'éviter les injections SQL dans votre URL. 
+5/ La mï¿½thode escape()
+ -> La fonction escape() permet simplement d'afficher le paramï¿½tre contenu dans la route.La mï¿½thode escape() permet d'ï¿½viter les injections SQL dans votre URL.
 
 -----------------------
 ETAPE 4 : VIRTUAL HOST
 ------------------------
 
-Sommaire : 
+Sommaire :
 
-1/ Modifier le fichier vhost (apache) 
-2/ Modifier le fichier conf (apache) 
+1/ Modifier le fichier vhost (apache)
+2/ Modifier le fichier conf (apache)
 3/Modifier le fichier host (system32)
 
 
 
-1/mODIFICATION DU FICHIER VHOST / 
+1/mODIFICATION DU FICHIER VHOST /
  >c:\xampp\apache\conf\extra\httpd-vhosts.conf
 
-2/ Modification du fichier conf : 
+2/ Modification du fichier conf :
 > c:\xampp\apache\conf\httpd.conf
 
 3/ Modification du fichier Hosts dans system 32
@@ -231,31 +231,31 @@ Sommaire :
 -------------------------------------------
 ETAPE 5 : HTACCESS POUR RETIRER INDEX.PHP :
 -------------------------------------------
-   
- -> Créer dans le dossier web de notre application, test.txt 
 
-   
+ -> Crï¿½er dans le dossier web de notre application, test.txt
+
+
  <code>
     <IfModule mod_rewrite.c>
-     
+
    Options -MultivViews
-        
-      
+
+
   RewriteEngine On
-      
+
   RewriteCond %{REQUEST_FILENAME} !-f
-       
+
   RewriteRule ^ index.php [QSA,L]
-  
+
   </IfModule>
 
-   
- -> Enregistrer le fichier avec l'extension .htaccess. 
+
+ -> Enregistrer le fichier avec l'extension .htaccess.
 Pour ce faire, selectionner tous les formats
-    
-   
- 
-Test à effectuer : www.boutique.dev/hello/yakine
+
+
+
+Test ï¿½ effectuer : www.boutique.dev/hello/yakine
 
 
 
@@ -263,55 +263,59 @@ Test à effectuer : www.boutique.dev/hello/yakine
 
 --------------------------------------
 ETAPE 6 : DEMARRAGE DE L'APPLICATION :
---------------------------------------  
-  
-Sommaire : 
-1/ Création des dossiers
+--------------------------------------
 
-2/ Récupérer les fichiers (de notre base site_mvc)
+Sommaire :
+1/ Crï¿½ation des dossiers
 
-3/ Création du fichier de routes
+2/ Rï¿½cupï¿½rer les fichiers (de notre base site_mvc)
 
-4/ Ré-écriture de index.php
+3/ Crï¿½ation du fichier de routes
+
+4/ Rï¿½-ï¿½criture de index.php
 
 --------------------------------------
 
-1/ Création des dossiers :
-   
- BOUTIQUE/    
-      
-  web/      (déjà créé)
-      
-  vendor/ (déjà crée)
-    
+1/ Crï¿½ation des dossiers :
+
+ BOUTIQUE/
+
+  web/      (dï¿½jï¿½ crï¿½ï¿½)
+
+  vendor/ (dï¿½jï¿½ crï¿½e)
+
     app/     (config de l'application)
-      
+
   db/     (script de creation de la bdd)
-     
+
    src/     (fichiers sources de notre application)
-       
+
  views/     (les vues de notre application)
 
-2/ Récupérer les fichiers (de notre base site_mvc)
+2/ Rï¿½cupï¿½rer les fichiers (de notre base site_mvc)
 
-Dans un premier temps on va gérer l'affichage de nos produits 
+Dans un premier temps on va gï¿½rer l'affichage de nos produits
 
-->model.php à copier/coller dans src/
-->view.php à copier/coller dans views/
-->css/photo/ à copier/coller dans web/
-
-
-3/ Créer un fichier de route qui va contenir toutes nos routes 
- -> app/routes.php 
--> On re-crée ma route '/'(la home), dans laquelle on va récupérer les infos de tous nos produits (grâce à model.php et sa fonction afficheAll()) et on les affiche via le concept render() (temporisation puis affichage)
+->model.php ï¿½ copier/coller dans src/
+->view.php ï¿½ copier/coller dans views/
+->css/photo/ ï¿½ copier/coller dans web/
 
 
-4/Ré-écriture de index.php 
+3/ Crï¿½er un fichier de route qui va contenir toutes nos routes
+ -> app/routes.php
+-> On re-crï¿½e ma route '/'(la home), dans laquelle on va rï¿½cupï¿½rer les infos de tous nos produits (grï¿½ce ï¿½ model.php et sa fonction afficheAll()) et on les affiche via le concept render() (temporisation puis affichage)
 
- -> A ce stade, nous avons plus besoin des rotes écrutes dans index.php, mais on a besoin de require notre fichier de routes (routes.php)
+
+4/Rï¿½-ï¿½criture de index.php
+
+ -> A ce stade, nous avons plus besoin des routes ï¿½crutes dans index.php, mais on a besoin de require notre fichier de routes (routes.php)
  -> O ajoute le mode debug car nous sommes en dev.
 
 Test: www.boutique.dev
+<<<<<<< HEAD
+A ce stade, npus devrions avoir la boutique qui s'affiche sur la home de notre nouveau site.
+en revanche, nous sommes en procï¿½dural... Il va donc falloir ajouter une couche OBJET.
+=======
 A ce stade, npus devrions avoir la boutique qui s'affiche sur la home de notre nouveau site. 
 en revanche, nous sommes en procédural... Il va donc falloir ajouter une couche OBJET. 
 
@@ -496,3 +500,4 @@ boutique/pull
 
 
 
+>>>>>>> cfdec698788e459883f40334f2d88eeaffcd41c4
