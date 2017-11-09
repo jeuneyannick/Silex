@@ -17,3 +17,7 @@ $app->register(new Silex\provider\DoctrineServiceProvider());
 $app['dao.produit'] = function($app){
     return new BOUTIQUE\DAO\ProduitDAO($app['db']);
 };
+
+//On enregistre le srvice TWIG :
+$app-> register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=> __DIR__ . '/../views'
+));

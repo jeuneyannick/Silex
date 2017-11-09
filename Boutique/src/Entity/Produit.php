@@ -86,7 +86,7 @@ public function setPublic($public)
 }
 public function getPublic()
 {
-    return $this->public = $public;
+    return $this->public; 
 }
 //-------------------------------------------
 

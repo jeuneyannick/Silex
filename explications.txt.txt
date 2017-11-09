@@ -405,17 +405,94 @@ $app['db'] représente par ailleurs notre connexion à la BDD grace à Doctrine DBA
 8/Création du fichier dev.php dans app/config
 ->Ce fichier contient les infos relatives à la phase de dev. 
 
-9/Modification du fichier routes.php
--> On remplace l'ancien require model.php qui nous permettait d'accéder à la méthode afficheAll() par une instanciation de ProduitDAO($app['produitDAO'])qui est notre nouveau model. Dans ce nouveau model, on éxécute findAll() et findAlCategories.
-===> La logique Controller/Model reste la même qu'auparavant. 
 
-/!\ Attention : Dans notre vue view.php, nous utilisons des arrays ($produit['titre']) mais maintenant on doit utiliser des objets ($produit->getTitre()).
+
+9/modification du fichier routes.php 
 
 
 
-10/ Modification de view.php 
--> on remplace les arrays par l'utilisation des getter : 
+
+10/Modification de view.php 
+-> On remplace les arrays par l'utilisation des getter : 
 ARRAY : <?= $pdt['titre'] ?>
-OBJET : <?=$pdt->getTitre() ?>
-TWIG : {{ pdt.titre}}
+OBJET : <?= $pdt->getTitre() ?>
+TWIG : {{pdt.titre}}
+
+
+11/Modification du fichier index.php 
+
+->On met en commentaire $app['debug'] = true, puisque nous l'avons mis dans dev.php 
+->On ajoute les require de app.php et dev.php avant le require de routes.php 
+
+->A ce stade, notre home doit afficher tous les produits, et le menu des categories. 
+===> Cette étape nous a permis d'introduire une modélisation objet (propre à silex : DAO, routing..) 
+===> Nous avons beaucoup travaillé la partie MODELS (DAO) et CONTROLLER (Routes.php), à l'étape suivante nous allons inétresser à la partie VIEWS avec TWIIG
+
+--------------------------------------------------------------------------
+ETAPE 8: UTILISATION DES SERVICES SILEX(Twig)
+(Ajout de l'utilisation de la fonction render)
+--------------------------------------------------------------------------
+
+Sommaire : 
+
+1/ Intro 
+2/Modification composer.json 
+3/Mise à jour via comoposer 
+4/Modification de app.php (enregistrement des nouveaux services)
+5/Modification des fichiers view.php, produit.php en Twig 
+6/Fonction render(): modélisation des routes. 
+------------------------------
+
+1/ Intro : 
+-> Il existe plusieurs moteurs template : Liquid, TPL, smarty, Blade, Twig. 
+-> De manière générale, un moteur de template permet de simplifier l'insertion de variables et de boucles PHP dans des blocs HTML.(idée des formes contractées) 
+
+-> TWIG à l'avantage de proposer un systèùe d'héritage. En d'autres termes, des morceaux d'HTML vont hériter d'autres morceaux d'HTML. Exemple: Le formulaire d'inscription hérite du template général de la page. 
+
+2/Modification du JSON 
+
+
+3/Mise à jour via composer
+<cmd>
+composer update 
+
+
+4/Modification de app.php 
+
+->enregistrement aux services Twig. 
+->L'enregistrement nécessite qu'on passe en argument le chemin de nos vues
+
+<code>
+ $app->register (new Silex/Provider/TwigServiceProvider(), array(
+'twig.path' => __DIR__.'/../views'
+)); 
+
+
+5/Modifications de nos vues : 
+-> view.php ==> index.html.twig
+->produit.php===> produit.html.twig
+
+6/ Modification des routes 
+->Ajout de la méthode render() 
+
+-----> A ce stade, notre home doit s'afficher. Test: www.boutique.dev. 
+------> En savoir plus sur Twig
+
+
+
+
+
+Exercice 
+boutique/tshirt
+boutique/chemise
+boutique/pull
+
+1/Créer la nouvelle route dans routes.php 
+2/Créer la requete dans une fonction findByCategorie($categorie) dans ProduitDAO
+3/Récupérer les infos de la fonction dans la route dans une varibale $produits 
+...
+5/Affiche la views view.php 
+6/Modifier les liens des categories vers boutique/nom_de_la_categorie
+
+
 
