@@ -1,15 +1,10 @@
-<!Doctype html>
-<html>
-<head>
-    <title>Mon Site - </title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="css/style.css"/>
-</head>
-<body>
-    <header>
+
+   {% extends 'layout.html.twig'%}
+
+   {% block content %}
         <h1><{{produit.titre}}></h1>
 
-        <img src="../photo/{{produit.photo}}" width="250" />
+        <img src="{{ asset('photo/'~produit.photo) }}" width="250" />
         <p>Détails du produit : </p>
         <ul>
             <li>Référence : <b>{{ produit.reference}}</b></li>
@@ -54,13 +49,6 @@
                 Soit les produits des autres catégories
             -->
 
-
-
         </div>
-        <footer>
-            <div class="conteneur">
-                {{ "now"|date("Y") }} - Tous droits reserv�s.
-            </div>
-        </footer>
-    </body>
-    </html>
+
+    {% endblock %}
