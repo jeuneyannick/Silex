@@ -607,15 +607,158 @@ ETAPE 17 : FORMULAIRE DE CONTACT
 Sommaire: 
 
 1/ Créer la route(render)
+-> Creation de la route /contact./
+-> Lorqu'on intéragit avec un formulaire en silex, et si on utilise toutes les fonctionnalités de silex, il faut  utiliser le composant Request qui gère la soumission du formulaire. 
+La fonction anonyme function() attend donc un objet de la classe Request. 
+->Le composant Request de HttpFoundation doit être USE en haut du fichier: 
+<code>
+use Symfony\Component\HttpFoundation\Request; 
+->Cette route doit traiter des infos en get (nom de la route) et en post (info du formulaire), la fonction est donc match (post+get) et non pas get(). 
+
+
+
 2/Faire le fichier contact.html.twig
+-> On ne crée pas le formulaire directement en HTML, on prépare simplement la page car le formulaire sera crée à l'étape suivante, via la class abstraite AbstractType qui permet de créer des classes gérants la construction de nos fomrulaires. 
+Cette démarche est nouvelle mais très pratique par la suite. 
 3/Creer ContactType(la classe qui va nous construire le formulaire)
+->On crée un fichier ContactType; dans le sous-dossier Type dans le dossier Form
+->Cette classe va nous permettre de définir ce qu'est notre formulaire de contact. Elle hérite de la classe abstraite AbstractType. 
+->La méthode FormBuilder va nous permettre de construire un formulaire, et va attendre en argument un objet de l'interface FormBuilderInterface.
+->La méthode Build va nous permettre de construire chaque champs un par un avec des options possibles pour chacun : Les contraintes, les classes, les attributs etc... etc...
+->Pour que l'ensemble fonctionne  nous avons besoin de USE beaucoup de composants : 
+<code>
+  use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+
+
+
+
+-> mise à jour de l'app (json + composer)
+
+{
+    "require": {
+        "silex/silex": "~2.0",
+        "doctrine/dbal": "2.5",
+        "twig/twig": "~1.28",
+        "symfony/asset": "~2.8|3.0.*",
+        "symfony/twig-bridge": "^3.3",
+        "symfony/form": "~2.8|3.0.*",
+        "symfony/translation": "~2.8|3.0.*",
+   "symfony/config": "~2.8|3.0.*",
+   "symfony/validator": "^3.2"
+    },
+    "autoload": {
+        "psr-4" : {"BOUTIQUE\\": "src"}
+    }
+}
+
+<cmd>
+ composer update
+
 ->Mise à jour de l'app (JSON + composer)
 ->enregistrement service form
 ->Form/Type/ContactType
-4/Modifier la route (récupération du formulaire]
-5/Modifier la vue.contact.html.twig
-6/Modifier la route (traitement de l'email)
 
+
+
+Enregistrement de nouveaux services (json + composer + app.php)
+
+
+5/Modifier la route (récupération du formulaire]
+-> La fonction create () de $app['form.factory] va construire et récupéerer notre formulaire, en lui précisant le type de formulaire à récupérer. 
+->HandleRequest($request) de notre fomulaire va gérer les infos récupérées. 
+->CreateView()de notre formulaire va créer la partie visuel du formulaire, et c'est cela que nous allons envoyer à la vue. 
+
+6/Modifier la vue.contact.html.twig
+-> Twig simplifie énormément la gestion de l'affichage du formulaire, l'affichage des données dans le formulaire et l'affichage des messages d'erreurs : 
+<code>
+{% if contactForm %}
+ {{ form_start(contactForm)}}
+    <label> Prénom : </label>
+{{ form_errors(contactForm.prenom}}
+{{ form_widget(contactForm.prenom}}
+....
+....
+
+{{form_end (contactForm)}}
+{%endif}
+
+
+7/Modifier la route (traitement de l'email)
+   ->Notre contactForm contient une méthode IsSubmitted() et isValid() qui nous permettent de savoir si le formulaire est activé et validé. 
+-> Ce système remplace un nombre incalculable de ligne PHP en mode procédural :) :) 
+
+
+======> A ce stade le formulaire www.boutique.dev/contact doit s'afficher, et nous retourner un print_r() avec tous les infos en post. 
+
+======>Il suffirait d'ajouter des traitements dans notre route pour que le fonctionnement soit complet.
+
+
+---------------------------------------
+Etape 19: Réorganisation en Controller
+---------------------------------------
+
+1/Création de deux controller : BaseController et ProduitController. 
+2/Création des fonctions dans notre controller
+3/Modification des routes 
+4/Modification des fonctions dans nos controllers.
+
+
+
+->Dans chaque controller, on autant d(action (fonction) que d'affichage prévue. Un affichage==une fonction
+
+2/On crée des fonctions pour chaque controller en fonction des affichages et des actions qu'ils doivent gérer. 
+
+->Exemple: ProduitController->produitAction($id)
+->exemple: ProduitController->boutiqueAction($categorie)
+
+3/Les routes ne contiennent plus de fonctions anonyme et donc plus de traitement; mais appellent simplement la fonction qu'il va falloir executer. 
+
+4/Touts les traitements qui étaient présents dans les routes, sont maintenant encapsulés dans les fonctions des Controller. 	
+
+
+----------------------------------------------
+ETAPE18: BACKOFFICE 
+--------------------------------------------
+Sommaire : 
+
+1/Creer un controller BackOfficeController 
+2/Creer la route get ('backoffice/produit') dont le nom est bo_produit
+3/Créer la fonction produitAction dans BackOfficeController et gérer toute la fonction 
+4/Créer la vue backoffice_produit.html.twig qui va afficher tous les produits sous forme d'un tableau 
+5/Créer la route match('backoffice/produit/{id}/add') dont le nom est bo_produit_add
+6/Creer la fonction addProduitAction() et gérer l'affichage de la page d'ajout.
+7/Créer ProduitType pour créer le formulaire d'ajout de produit
+8/Modifier la fonction addProduitAction() pour qu'elle affiche le formualaire.
+
+
+
+
+
+---------------
+
+
+
+
+
+
+
+contact 
+
+
+re-organisation en controller 
+
+
+
+backoffice : ajouter un produit / Modifier / Supprimer
+Connexion : DAO, Modification de la BDD : username/password, Entity Membre, MembreType
 
 
 
@@ -743,6 +886,3 @@ boutique/pull
 5/Affiche la views view.php 
 6/Modifier les liens des categories vers boutique/nom_de_la_categorie
 
-
-
->>>>>>> cfdec698788e459883f40334f2d88eeaffcd41c4

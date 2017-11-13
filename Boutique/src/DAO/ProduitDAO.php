@@ -86,4 +86,29 @@ class ProduitDAO
 
         //On a transformé un array qui contient toutes les infos d'un produit en un objet qui contient toutes les infos du produit et on a renvoyé cet objet ensuite :)
     }
+
+     public function save(Produit $produit){
+         $produitData = array(
+            'reference'=> $produit->getReference(),
+            'categorire'=> $produit->getCategories(),
+            'titre'=> $produit->getTitre(),
+            'description'=> $produit->getDescription(),
+            'public'=> $produit->getPublic(),
+            'prix'=> $produit->getPrix(),
+            'taille'=> $produit->getTaille(),
+            'couleur'=> $produit->getCouleur(),
+            'photo'=> 'test.png'
+         );
+
+         if($produit->getId_produit()){
+             //Update
+             $this->getDb()->update('produit', $produitData, array('id_produit'=>$produit->getId_produit()));
+         } else {
+             //Ajout de Produit
+             $this->getDb->insert('produit', $produitData);
+         }
+
+     }
+
+
 }

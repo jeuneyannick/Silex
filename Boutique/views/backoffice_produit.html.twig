@@ -1,0 +1,53 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+
+<h1>{{title}}</h1>
+  <table border="1">
+  <!--Ligne de titres-->
+  <tr>
+      <th>Photo</th>
+      <th>Id du produit</th>
+      <th>Titre</th>
+      <th>Référence</th>
+      <th>Catégorie</th>
+      <th>Taille</th>
+      <th>Public</th>
+      <th>Prix</th>
+      <th>Stock</th>
+      <th>Couleur</th>
+      <th>Description</th>
+      <th colspan="2">Actions</th>
+  </tr>
+
+  <!--Ligne pour chaque produit-->
+  {% for produit in produits%}
+  <tr>
+      <td><img src="{{ asset('photo/' ~ produit.photo) }}" height="80" /></td>
+      <td>{{produit.id_produit}}</td>
+      <td>{{produit.titre}}</td>
+      <td>{{produit.reference}}</td>
+      <td>{{produit.categories}}</td>
+      <td>{{produit.taille}}</td>
+      <td>{{produit.couleur}}</td>
+
+      {% if produit.public == 'm' %}
+      <td>Homme</td>
+      {% elseif produit.public == 'f' %}
+      <td>Femme</td>
+      {% else %}
+      <td>Mixte</td>
+      {% endif %}
+
+      <td>{{produit.description}}</td>
+      <td>{{produit.prix}}</td>
+      <td>{{produit.stock}}</td>
+      <td><a href=""><img src="{{asset('img/edit.png')}}"width="20" /></a></td>
+      <td><a href=""><img src="{{asset('img/delete.png')}}"width="20" /></a></td>
+ </tr>
+  {% endfor %}
+</table>
+  {% endblock %}

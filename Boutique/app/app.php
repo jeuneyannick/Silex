@@ -11,7 +11,7 @@ ExceptionHandler::register();
 
 
 //On enregistre notre application au service Doctrine qu'on a récupéré :
-$app->register(new Silex\provider\DoctrineServiceProvider());
+$app->register(new Silex\Provider\DoctrineServiceProvider());
 
 //On enregistre dans $app['dao.produit'] un objet de la classe ProduitDAO de manière à ce qu'il soit directement accessible via $app.
 $app['dao.produit'] = function($app){
@@ -30,4 +30,9 @@ $app->register(new Silex\Provider\AssetServiceProvider(), array(
 ));
 
 //On enregistre le service Form
-$app->register(new Silex\Provider\FormServiceProvider()); 
+$app->register(new Silex\Provider\FormServiceProvider());
+
+//On enresgitre les services
+$app->register(new Silex\Provider\LocaleServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());

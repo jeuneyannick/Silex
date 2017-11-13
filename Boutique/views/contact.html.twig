@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title}{{title}}{% endblock %}
+{% block title%} {{title}} {% endblock %}
 
 {% block content %}
 
@@ -19,6 +19,11 @@
 <label>Email: </label>
 {{form_errors(contactForm.email)}}
 {{ form_widget(contactForm.email)}}
+
+<label>Sujet: </label>
+{{form_errors(contactForm.sujet)}}
+{{ form_widget(contactForm.sujet)}}
+
 <label>Message : </label>
 {{form_errors(contactForm.message)}}
 {{form_widget(contactForm.message)}}
