@@ -1,0 +1,426 @@
+---------
+SILEX :
+------------------
+Sommaire :
+INTRO : Qu'est-ce que Silex ?
+Etape 0 : Base de notre app : site_mvc (proc�dural)
+ETAPE 1 : Installation de Silex
+ETAPE 2 : D�marrage et compr�hension
+ETAPE 3 : Le routing avec Silex
+ETAPE 4 : Virtual Host
+ETAPE 5 : HTACCESS : "On retire 'index.php'
+ETAPE 6 : D�marrage de notre application BOUTIQUE
+ETAPE 7 : Utilisation des services Silex (Doctine DBAL)
+ETAPE 8 : Utilisation des services Silex(Twig)
+ETPAE 9 : Utilisation des services Silex (Bootstrap)
+ETPAE 10: Ajout des commentaires � nos produits (Injection de d�pendance)
+ETAPE 11: Le class DAO(design pattern : comment transformer un tableau multidimensionnel compos� d'array, en un tableau dimensionnel compos� d'objet)
+ETAPE 12 : H�ritage TWIG
+ETAPE 13: Gestion de la s�curit� (Connexion)
+ETAPE 14: Class MembreDAO et UserProviderInterface
+ETAPE 15: Formulaire de connexion
+ETAPE 16: Formulaire d'inscription
+ETPAE 17: Formulaire de contact
+ETAPE 18: BACKOFFICE
+ETAPE 19: R�organisation en Controller
+ETAPE 20: Prp�paration de la pise en prod.
+
+
+---------------------------------
+INTRO : Qu'est-ce que Silex ?
+
+
+  1/ Avantages � utiliser un Framework ?
+
+   A/ Choix d'une organisation optimis�e. Il est tr�s difficile de conceptualiser soi-m�me une application en objet (un Framework maison). O� vont les controller? Les models? Les vues ? Aucune r�ponse n'est parfaite mais chacun � sa propre organisation coh�rente...ou pas.
+
+
+  B/ Focntinnalit�s communes : Un framework permet de r�cup�rer des briques d�j� existantes.. et les r�cup�rer du site A vers le site B etc.. (Briques : Connexion, inscription, session, commentaires..)
+
+
+   C/ Services disponibles : Tous les frameworks proposent des services : Routage (Routing), la s�curit�, la gestion du cache etc...
+Cela nous permet de nous concentrer et de passer plus de temps au d�veloppement de nos propres fonctionnalit�s.
+
+
+
+   2/ Quel choix de Framework ?
+
+  A/Son propre framework maison ?
+Tr�s formateur !!On peut toujours l'am�liorer et l'utiliser dans des projets persos... par contre : pas de communaut�, pas de documentation et c'est difficile de grantir tous les aspects de s�curit�.
+
+
+
+  B/Framework du march� :
+
+-Framework Fullstack (Zend, Symfony, Cake) : Beaucoup de services disponibles, grosses communaut�s, mais un d�ploiement tr�s lourd et une architecture IMPOSEE.
+
+-Mini Framework (Laravel et Silex) : Proposent des services � la carte et une architecture plus souple.
+
+ A/ Silex est un framework developp� par les �quipes SensioLabs, qui sont les cr�ateurs de Symfony. Il repose sur les m�mes composants.
+
+
+
+ B/On dit que Silex est un mini-framework , parfait pour l'apprentissage, et la compr�hension de la logique Framework. Parfait �galement pour d�velopper des applications rapidement et premi�re �tape int�ressante dans l'apprentissage de Symfony.
+
+
+
+
+
+
+  B/Framework du march� : FullStack
+
+
+
+
+
+
+----------------------------------------------------
+Etapae 0 : Base de notre app : site_mvc (proc�dural)
+----------------------------------------------------
+Pour commencer la compr�hension de Silex, nous allons partir sur la base d'un morceau de site en proc�dural et en MVC afin d'avancer �tape par �tape :
+
+
+silex/site_mvc/
+    - css/(copier de votre ancien site proc�dural)
+    - photo/(copier de votre ancien site proc�dural)
+    - index.php (vide)
+    - model.php(vide)
+    - view.php (vide)
+
+
+
+
+Etape 1 : Installation de Silex
+
+
+
+Sommaire:
+
+1/Installation de composer
+2/Cr�ation du dossier BOUTIQUE
+3/ Commande pour t�l�charger les composants de Silex
+3.Bis : Autre technique pour t�l�charger les composants de silex
+4/ tour d'horizon des composants.
+-------------------------
+
+
+
+1/Installation de Composer
+
+Composer est outil de gestion des d�pendances. Il permet d'installer des services (composants, d�pendances) et est reli� � un fichier composer.json.
+
+-->T�l�charger composer
+--> Installer composer (en pr�cisant php.exe)
+
+
+2/ creation du dossier silex/BOUTIQUE/
+
+3/ cOMMANDE POUR T2L2CHARGER LES COMPOSANTS DE SILEX /
+-> on se place dans le dossier BOUTIQUE/
+-> Maj + clic droit > "Ouvrir la fenetre de commande ici"
+
+
+<cmd>
+
+composer require silex/silex "~2.0"
+  <code>
+    {
+     "require": {
+                "silex/silex": "~2.0"
+                }
+        }
+      <cmd>
+  composer update
+
+
+4/Les composants :
+
+Le dossier vendor correspond au coeur de notre framework. Il contient tous les composants r�cup�r�s de Silex/Symfony, sur lesquels nous n'intervidendrons jamais !!!
+
+3.bis
+
+----------------------------
+ETAPE 2 : D�marrage et Compr�hension
+------------------------------
+
+Sommaire :
+1/Cr�ation du r�pertoire Web
+2/Cr�ation du fichier index.php
+
+
+1/repertoire web
+
+-> a la racine de notre application BOUTIQUE/web/
+-> Ce dossier constitue notre repertoire web, cela signifie qu'il va contenir tout ce qui est visble et accessible pour l'internaute (index.php, photos, img, fonts, js, css...)
+
+
+2/ creer web/index.php
+
+->d'abord on require l'autoload qui se chargera de require tous les fichiers dont on aura besoin.PRATIQUE !
+
+
+
+-> On instancie la classe Application : L'objet $app va repr�senter notre application et nous donne acc�s � toutes les fonctionnalit�s de Silex.
+
+-> M�thode run() : Lancement de l'application.
+
+
+
+---------------------------------
+ETAPE 3 : Le routing sur Silex
+--------------------------------
+
+Sommaire :
+
+1/ Route Hello World
+2/ Route Hello {$name}
+3/ La fonction Get de notre application
+4/ Arguments
+5/ fonction escape()
+-----------------------
+
+
+
+1/ Route Hello World
+
+
+ -> $app -> get() est la fonction qui nous permet de cr�er une nouvelle route. Chaque route est une action dans notre application. Ensuite nous rangerons toutes nos actions dans des controllers, pour optimiser notre organisation.
+
+
+2/Route Hello {$name}
+  ->Creation de la route /hello/{name}
+->Test : localhost/silex/BOUTIQUE/web/index.php/hello/Yannick
+
+
+3/La fonction Get()
+-> A chaque nouvelle fonctionnalit�, on va utiliser la fonction get de $app, qui nous cr�e une nouvelle route. En plus de get, il existe post() et match(). Nous les verrons plus tard.
+
+
+4/Arguments:
+-> le premier argument est la nom de la route. Les param�trres contenus dans les URL sont alors d�clar� en {]
+-> le second argument function{} est ce que l'on appelle une "closure" ou une "fonction anonyme". Elle signifie que ce qui va suivre sera execut�. Une fonction dans une fontion finalement. Elle peut recevoir les param�trres dynamiques de notre URL (ex: function ($name)).
+
+5/ La m�thode escape()
+ -> La fonction escape() permet simplement d'afficher le param�tre contenu dans la route.La m�thode escape() permet d'�viter les injections SQL dans votre URL.
+
+-----------------------
+ETAPE 4 : VIRTUAL HOST
+------------------------
+
+Sommaire :
+
+1/ Modifier le fichier vhost (apache)
+2/ Modifier le fichier conf (apache)
+3/Modifier le fichier host (system32)
+
+
+
+1/mODIFICATION DU FICHIER VHOST /
+ >c:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+2/ Modification du fichier conf :
+> c:\xampp\apache\conf\httpd.conf
+
+3/ Modification du fichier Hosts dans system 32
+> c:\windows\system32\drivers\etc\hosts
+
+
+
+
+
+-------------------------------------------
+ETAPE 5 : HTACCESS POUR RETIRER INDEX.PHP :
+-------------------------------------------
+
+ -> Cr�er dans le dossier web de notre application, test.txt
+
+
+ <code>
+    <IfModule mod_rewrite.c>
+
+   Options -MultivViews
+
+
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+
+  RewriteRule ^ index.php [QSA,L]
+
+  </IfModule>
+
+
+ -> Enregistrer le fichier avec l'extension .htaccess.
+Pour ce faire, selectionner tous les formats
+
+
+
+Test � effectuer : www.boutique.dev/hello/yakine
+
+
+
+
+
+--------------------------------------
+ETAPE 6 : DEMARRAGE DE L'APPLICATION :
+--------------------------------------
+
+Sommaire :
+1/ Cr�ation des dossiers
+
+2/ R�cup�rer les fichiers (de notre base site_mvc)
+
+3/ Cr�ation du fichier de routes
+
+4/ R�-�criture de index.php
+
+--------------------------------------
+
+1/ Cr�ation des dossiers :
+
+ BOUTIQUE/
+
+  web/      (d�j� cr��)
+
+  vendor/ (d�j� cr�e)
+
+    app/     (config de l'application)
+
+  db/     (script de creation de la bdd)
+
+   src/     (fichiers sources de notre application)
+
+ views/     (les vues de notre application)
+
+2/ R�cup�rer les fichiers (de notre base site_mvc)
+
+Dans un premier temps on va g�rer l'affichage de nos produits
+
+->model.php � copier/coller dans src/
+->view.php � copier/coller dans views/
+->css/photo/ � copier/coller dans web/
+
+
+3/ Cr�er un fichier de route qui va contenir toutes nos routes
+ -> app/routes.php
+-> On re-cr�e ma route '/'(la home), dans laquelle on va r�cup�rer les infos de tous nos produits (gr�ce � model.php et sa fonction afficheAll()) et on les affiche via le concept render() (temporisation puis affichage)
+
+
+4/R�-�criture de index.php
+
+ -> A ce stade, nous avons plus besoin des routes �crutes dans index.php, mais on a besoin de require notre fichier de routes (routes.php)
+ -> O ajoute le mode debug car nous sommes en dev.
+
+Test: www.boutique.dev
+
+A ce stade, npus devrions avoir la boutique qui s'affiche sur la home de notre nouveau site.
+en revanche, nous sommes en proc�dural... Il va donc falloir ajouter une couche OBJET.
+=======
+A ce stade, npus devrions avoir la boutique qui s'affiche sur la home de notre nouveau site.
+en revanche, nous sommes en proc�dural... Il va donc falloir ajouter une couche OBJET.
+
+
+
+ETAPE 7 : UTILISATION DES SERVICES SILEX:
+Doctrine BDAL + mod�lisation objet
+
+
+Sommaire :
+1/Cr�ation de la classe Produit dans src/Entity
+2/Remplacement de PDO par Doctrine DBAL
+3/Cr�er le dossier DAO (Data Access Object)
+4/Ajouter le fichier ProduitDAO.php
+5/Mise � jour de l'application via composer
+6/Cr�ation du fichier app.php dans app/
+7/creation du fichier prod.php dans app/config
+8/creation du fichier dev.php dans app/config/
+9/Modification des routes
+10/Modification de la vue
+11/Modification de l'index.php
+
+
+
+
+1/ Cr�ation de la class Produit dans src/Entity
+->Creation de la classe Produit dans src/Entity/Produit.php
+->cette classe va servir de plan de fabrication d'un objet Produit. Un prototype. Il contient toutes les propri�t�s de l'entit� produit (private)
+et tous les getter/setters. On dit que cette classe est un POPO (PLAIN OLD PHP OBJECT)
+
+
+2/ Remplacement de PDO par Doctrine DBAL
+-> Doctrine DBAL (DATABASE Abstract Layer) : Fait la m�me chose que PDO mais am�liore le syst�me de requ�te. Ce service de Silex,, nous permet �galement une connexion compatible avec tout type de gestion de BDD.
+Il nous r�cup�re la connexion dans un SINGLETON sans qu'on ait besoin de le faire nous-m�me.
+
+
+
+3/ Cr�ation un dossier DAO dans src/
+
+->DAO : DATA ACCESS OBJECT : DAO est un design pattern qui r�pond � la questioin ; Comment r�cup�rer des infos depuis la base donn�es non pas sous forme d'array, mais sous forme d'objets ? ==> voire la m�thode (buildProduit())
+
+
+4/Cr�ation du fichier produit DAO.php dans src/DAO/
+
+-> Ce fichir correspond � notre MODEL PRODUIT. C'est lui qui va g�rer toutes les requetes aupr�s de la table produit, et nous renvoyer les r�sultats sous forme d'objets.
+
+-> On a r�cup�r� la connexion � la base de donn�es gr�ce � Doctrine\DBAL\Connextion.
+->On stocke cette connexion dans la propri�t� private $db.
+->Chauqe requete sur la table Produit sera representee par une fonction. (findAll, findById, findAllByCategorie,etc...)
+->Pour chacune de ses requestes quand cela est possible on va transformer les relustas d'array en objets grace � a la m�thode buildProduit()).
+
+===>DAO est un design pattern qui permet de mod�liser sous forme d'objet (ENTITY) les resultats d'une requete.
+
+Mise � jour de notre notre application
+
+ {
+        "require": {
+            "silex/silex": "~2.0",
+            "doctrine/dbal": "2.5"
+        }
+        "autoload": {
+            "psr-4" : {"BOUTIQUE\\": "src"}
+        }
+    }
+
+
+<cmd>
+composer update
+
+-> Cette commande a fait :
+- R�cuperer les composants Doctrine DBAL
+-Mise � jour l'autoload selon la norme PSR-4 (les noms des namespaces correspondent � des noms des dossiers)
+
+
+6/creation du fichier app.php dans le dossier app/
+ ->Ce fichier repr�sente les param�tres de notre application. Quand vous d�placerez votre application d'un server � un autre en th�orie vous ne dervez modifier que ce fichier l�... A l'insatr de init.inc.php dans notre proc�dural.
+ -> Les deux premieres lignes (use ErrorHandler et ExceptionHandler) permettent � notre application de g�rer les erreurs sous forme d'Exception.
+Les composants Symfony prennent la main sur la gestion des erreurs PHP.
+
+
+ -> Ensuite on enregistre le fournisseur de service associ� � Doctrine DBAL.
+A faire pour tous les services utilis�s.
+
+-> Enfin on d�clare/enregistre notre class ProduitDAO dans notre $app['dao.produit']. Cela nous permettra de rendre plus simple l'utilisation de notre instance de la classe ProduitDAO.
+$app['db'] repr�sente par ailleurs notre connexion � la BDD grace � Doctrine DBAL.
+
+
+7/Cr�ation du fichier prod.php dans app/config
+-> Cefichier contient toutes les infos de connexion � la bdd.
+
+8/Cr�ation du fichier dev.php dans app/config
+->Ce fichier contient les infos relatives � la phase de dev.
+
+9/Modification du fichier routes.php
+-> On remplace l'ancien require model.php qui nous permettait d'acc�der � la m�thode afficheAll() par une instanciation de ProduitDAO($app['produitDAO'])qui est notre nouveau model. Dans ce nouveau model, on �x�cute findAll() et findAlCategories.
+===> La logique Controller/Model reste la m�me qu'auparavant.
+
+/!\ Attention : Dans notre vue view.php, nous utilisons des arrays ($produit['titre']) mais maintenant on doit utiliser des objets ($produit->getTitre()).
+
+
+
+10/ Modification de view.php
+-> on remplace les arrays par l'utilisation des getter :
+ARRAY : <?= $pdt['titre'] ?>
+OBJET : <?=$pdt->getTitre() ?>
+TWIG : {{ pdt.titre}}
+
+>>>>>>> cfdec698788e459883f40334f2d88eeaffcd41c4
