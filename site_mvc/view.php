@@ -28,7 +28,7 @@
         <div class="boutique-gauche">
             <ul>
                 <li><a href="boutique.php">Tous les produits</a></li>
-                <?php for($i = 0; $i < count($categories) ; $i ++) : ?>
+                <?php for($i = 0; $i <count($categories) ; $i ++) : ?>
                     <li><a href="?cat=<?=  $categories[$i]['categorie'] ?>"><?=  $categories[$i]['categorie'] ?></a></li>
                 <?php endfor; ?>
                 <!-- La boucle ci-dessus parcourt tous les résultats de la requête SELECT DISTINCT CATEGORIE FROM PRODUIT. Le résultat un tableau multidimentionnel dans lequel à chaque indice (0, 1, 2 etc..) on récupère un array, avec la catégorie à l'indice 'categorie'. Donc $categories[$i]['categorie'] nous affiche chaque catégorie. -->
